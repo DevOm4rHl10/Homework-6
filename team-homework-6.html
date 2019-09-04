@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Home work 6</title>
+</head>
+<body>
+  <div id='app-container'>
+    <div id='road'>
+      <div id='square'>
+
+      </div>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    var direction = 1;
+    var step = 5;
+
+    function move() {
+      var currentPosition = getCurrentPosition();
+
+      console.log("currentPosition", currentPosition, )
+
+      if (currentPosition >= getRoadWidth() - getSquareWidth()) {
+        direction = -1;
+      }
+
+      if (currentPosition <= 0) {
+        direction = 1;
+      }
+
+      setPosition(getCurrentPosition() + direction * step);
+    }
+
+    setInterval(move, 10);
+
+    function getSquareWidth() {
+      var square = document.getElementById('square');
+      return square.offsetWidth;
+    }
+
+    function moveRight() {
+      setPosition(getCurrentPosition() + 1);
+    }
+
+    function moveLeft() {
+      setPosition(getCurrentPosition() - 1);
+    }
+
+    function getCurrentPosition() {
+      var square = document.getElementById('square');
+      if (square.style.marginLeft == "") {
+        return 0;
+      } else {
+        return parseInt(square.style.marginLeft.slice(0, -2));
+      }
+    }
+
+    function getRoadWidth() {
+      var road = document.getElementById('road');
+      return road.offsetWidth;
+    }
+
+    function setPosition(position) {
+      console.log("setting position to:", position);
+      var square = document.getElementById('square');
+      square.style.marginLeft = position + 'px';
+    }
+
+    move();
+
+  </script>
+
+  <style type="text/css">
+    body {
+      margin: 0;
+    }
+
+    #app-container {
+      background-color: black;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    #road {
+      background-image:
+        linear-gradient(to right, transparent 50%, white 50%);
+      background-size: 100px;
+      width: 100%;
+      height: 50px;
+      display: flex;
+      justify-content: left;
+      align-items: center;
+    }
+
+    #square {
+      height: 100px;
+      width: 100px;
+      background-color: rgba(255, 0, 0, 0.5);
+    }
+  </style>
+</body>
+</html>
